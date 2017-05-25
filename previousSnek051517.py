@@ -70,7 +70,7 @@ while True:
 ##    print("snake coords", snake.xcor(), snake.ycor()) 
 ##    print("snaketail coords", snaketail.xcor(), snaketail.ycor())
 ##    print("\n")
-    print(copycoords)
+##    print(copycoords)
     x = snake.xcor()
     y = snake.ycor()
     x2 = snaketailcopy.xcor()

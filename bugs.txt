@@ -1,19 +1,21 @@
+1) can't immediately turn right after turning left after turning right and vice versa
+2) apple respawn code runs multiple times
+
+
+(code for scaly snek)
 import turtle
 import time
 import random
-turtel = turtle.Turtle()
-turtel.penup()
-turtel.goto(0, 370)
 wn = turtle.Screen()
 wn.bgcolor("white")
 mypen = turtle.Turtle()
 mypen.color("black")
 mypen.penup()
-mypen.setposition(-360,-390)
+mypen.setposition(-470,-450)
 mypen.pendown()
 mypen.pensize(3)
 for side in range(4):
-    mypen.forward(750)
+    mypen.forward(940)
     mypen.left(90)
 mypen.hideturtle()
 apeat= 0
@@ -27,8 +29,8 @@ snake.pensize(5)
 snake.speed(0)
 snake.hideturtle()
 snaketail = turtle.Turtle()
-snaketail.color("blue")
-snaketail.pensize(10)
+snaketail.color("white")
+snaketail.pensize(5)
 snaketail.speed(0)
 snaketail.hideturtle()
 w = 0
@@ -36,17 +38,18 @@ z = 0
 coords = []
 leftRightTurns = []
 turns = 0
-speed = 1
-tailspeed = 0
+speed = 2
+tailspeed = 1
 ateApple = False
 turnedLeft = False
 turnedRight = False
+lastTurn = ""
+leftTurns = 0
+rightTurns = 0
 applereset = 0
-gamestart = True
-followed = False
 def addspeed():
     global tailspeed
-    tailspeed = 1
+    tailspeed = 2
 def resetcoords():
     global x
     x = snake.xcor()
@@ -56,117 +59,118 @@ def resetcoords():
     coords[turns - 1].append(x)
     coords[turns - 1].append(y)
 def addLeft():
-    leftRightTurns.append("left")
-def addRight():
-    leftRightTurns.append("right")
+    leftRightTurns[turns - 1].append("left")
 def resetcOrds():
-    global ateApple
     global applereset
     applereset += 1
     global apeat
     apeat+=1
-    if gamestart == True:
-        print("")
-    else:
-        ateApple = True
+    ateApple = True
     apple.hideturtle()
     global w
     w = apple.xcor()
     global z
     z = apple.ycor()
-    apple.goto(random.randint(-350, 350), random.randint(-350, 350))
+    apple.goto(random.randint(-400, 400), random.randint(-400, 400))
     apple.showturtle()
 resetcOrds()
-gamestart = False
 applereset = 0
 def boundary_check_snake():
-    if snake.xcor() > 360 or snake.xcor() < -360:
-        mypen.penup()
-        mypen.goto(-150,0)
-        mypen.write("you died", font = ("Arial", 90, 'normal'))
-        while True == True:
-            snake.forward(0)
-    if snake.ycor() > 370 or snake.ycor() < -370:
-        mypen.penup()
-        mypen.goto(-150,0)
-        mypen.write("you died", font = ("arial", 90, 'normal'))
-        while True == True:
-            snake.forward(0)        
+    if snake.xcor() > 500 or snake.xcor() < -500: 
+        snake.right(180)
+        snaketail.goto(snake.xcor(), snake.ycor())
+        snaketail.right(180)
+    if snake.ycor() > 400 or snake.ycor() < -400:
+        snake.right(180)
+        snaketail.goto(snake.xcor(), snake.ycor())
+        snaketail.right(180)
 def left():
     print("snek turned left")
+    global turnedLeft
     global turns
-    global tailspeed
-    global gamestart
-    global followed
-    if gamestart == True:
-        addspeed()
-        gamestart = False
-    else:
-        tailspeed = speed
+    global leftTurns
+    global lastTurn
     turns += 1
-    print(turns)
     snake.left(90)
     resetcoords()
-    addLeft()
+    turnedLeft = True
+    leftTurns += 1
+    print("left funct", turnedLeft)
+    if turnedRight == True or rightTurns > 0:
+        lastTurn = "right"
 def right():
     print("snek turned right")
+    global turnedRight
     global turns
-    global tailspeed
-    global gamestart
-    if gamestart == True:
-        addspeed()
-        gamestart = False
-    else:
-        tailspeed = speed
+    global rightTurns
+    global lastTurn
     turns += 1
-    print(turns)
     snake.right(90)
     resetcoords()
-    addRight()
+    turnedRight = True
+    rightTurns += 1
+    print("right funct", turnedRight)
+    if turnedLeft == True or leftTurns > 0:
+        lastTurn = "left"
 turtle.listen()
 turtle.onkey(left, "Left")
 turtle.onkey(right, "Right")
 def followLeft():
+    global leftTurns
     global tailspeed
+    global turnedLeft
     snaketail.left(90)
+    addspeed()
+    tailspeed = speed
+    turnedLeft = False
+    leftTurns -= 1
     print("left")
 def followRight():
+    global rightTurns
     global tailspeed
+    global turnedRight
     snaketail.right(90)
+    addspeed()
+    tailspeed = speed
+    turnedRight = False
+    rightTurns -= 1
     print("right")
 while True:
     snake.forward(speed)
     snaketail.forward(tailspeed)
     boundary_check_snake()
-    print(speed)
-    print("tail", tailspeed)
-    #print("turns", turns)
-    print("coords list", coords)
-    print("snake coords", snake.xcor(), snake.ycor()) 
-    print("snaketail coords", snaketail.xcor(), snaketail.ycor())
-    #print("apple coords", apple.xcor(), apple.ycor())
-    print("leftRightTurns", leftRightTurns)
-    print("\n")
+##    print(speed)
+##    print("tail", tailspeed)
+##    print("turns", turns)
+##    print("coords list", coords)
+##    print("snake coords", snake.xcor(), snake.ycor()) 
+##    print("snaketail coords", snaketail.xcor(), snaketail.ycor())
+##    print("apple coords", apple.xcor(), apple.ycor()) 
+##    print("\n")
     x = snake.xcor()
     y = snake.ycor()
     w = apple.xcor()
     z = apple.ycor()
     for x in range(turns):
-        print("x", x)
-        if (snaketail.xcor() >= coords[x][0] - 2) and (snaketail.xcor() <= coords[x][0] + 2):
-            if (snaketail.ycor() >= coords[x][1] - 2) and (snaketail.ycor() <= coords[x][1] + 2):    
-                if followed == False:
-                    print("ran")
-                    if leftRightTurns[x] == "right":
-                        tailspeed = speed
-                        followRight()
-                        followed = True
-                    if leftRightTurns[x] == "left":
-                        tailspeed = speed
-                        followLeft()
-                        followed = True
-        #print("ar", applereset)
-        #print("AA", ateApple)
+        #print(x)
+        if (snaketail.xcor() == coords[x][0]) and (snaketail.ycor() == coords[x][1]):
+##            print("ran")
+##            print("turnedLeft", turnedLeft)
+##            print("turnedRight", turnedRight)
+##            print("left turns", leftTurns)
+##            print("right turns", rightTurns)
+##            print("lastTurn", lastTurn)
+            if lastTurn == "right":
+                followRight()
+                lastTurn = ""
+            if lastTurn == "left":
+                followLeft()
+                lastTurn = ""
+            else:
+                if (turnedLeft == True) or (leftTurns > 0):
+                    followLeft()
+                if (turnedRight == True) or (rightTurns > 0):
+                    followRight()
     if applereset == 0:
         for i in range (int(w) - 5, int(w) + 5):
             #print(applereset)
@@ -179,11 +183,9 @@ while True:
                         resetcOrds()
                         #print("apple reset", applereset)
     if ateApple == True:
-            print("did i eat the apple")
             applereset = 0
             oldspeed = speed
             speed = oldspeed + 0.5
-            tailspeed = speed
             ateApple = False                                 
 
 apple.listen()
@@ -194,3 +196,5 @@ apple.listen()
 ##    print("snake coords", snake.xcor(), snake.ycor()) 
 ##    print("snaketail coords", snaketail.xcor(), snaketail.ycor())
 ##    print("\n")
+
+turn left, have snake go up
