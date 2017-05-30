@@ -16,7 +16,6 @@ for side in range(4):
     mypen.forward(750)
     mypen.left(90)
 mypen.hideturtle()
-apeat= 0
 apple = turtle.Turtle()
 apple.penup()
 apple.shape("turtle")
@@ -39,8 +38,6 @@ turns = 0
 speed = 1
 tailspeed = 0
 ateApple = False
-turnedLeft = False
-turnedRight = False
 applereset = 0
 gamestart = True
 followed = False
@@ -63,8 +60,6 @@ def resetcOrds():
     global ateApple
     global applereset
     applereset += 1
-    global apeat
-    apeat+=1
     if gamestart == True:
         print("")
     else:
@@ -103,6 +98,7 @@ def left():
         gamestart = False
     else:
         tailspeed = speed
+    followed = False
     turns += 1
     print(turns)
     snake.left(90)
@@ -113,11 +109,13 @@ def right():
     global turns
     global tailspeed
     global gamestart
+    global followed
     if gamestart == True:
         addspeed()
         gamestart = False
     else:
         tailspeed = speed
+    followed = False
     turns += 1
     print(turns)
     snake.right(90)
@@ -152,7 +150,8 @@ while True:
     w = apple.xcor()
     z = apple.ycor()
     for x in range(turns):
-        print("x", x)
+        #print("x", x)
+        print(followed)
         if (snaketail.xcor() >= coords[x][0] - 2) and (snaketail.xcor() <= coords[x][0] + 2):
             if (snaketail.ycor() >= coords[x][1] - 2) and (snaketail.ycor() <= coords[x][1] + 2):    
                 if followed == False:
