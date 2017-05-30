@@ -1,1 +1,31 @@
 i dont know
+
+problem:
+
+snake coordinates and snaketail coordinates not matching up
+
+Solution:
+
+add a range
+
+problem: because of range, snaketail follow code runs more than once
+
+solution:
+
+add "followed" boolean variable
+
+problem:
+
+snake tail can only turn when followed is False, therefore it cannot turn immediately after it has followed, 
+and the snake has not yet turned
+
+---> this applies when turning multiple times in a row :(
+
+---> under what conditions should snake be able to turn?
+
+solution:
+
+ADD another Variable! "turnedtwice"
+
+if followed = True and x < ???? (secondary condition when snake is one or more turns ahead of snaketail) or
+make variable counting number of times snaketail has turned in addition to snake head?

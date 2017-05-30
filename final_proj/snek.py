@@ -26,8 +26,8 @@ snake.pensize(5)
 snake.speed(0)
 snake.hideturtle()
 snaketail = turtle.Turtle()
-snaketail.color("blue")
-snaketail.pensize(10)
+snaketail.color("white")
+snaketail.pensize(15)
 snaketail.speed(0)
 snaketail.hideturtle()
 w = 0
@@ -98,9 +98,11 @@ def left():
         gamestart = False
     else:
         tailspeed = speed
+    print(followed)
     followed = False
+    print(followed)
     turns += 1
-    print(turns)
+    #print(turns)
     snake.left(90)
     resetcoords()
     addLeft()
@@ -110,14 +112,16 @@ def right():
     global tailspeed
     global gamestart
     global followed
+    print(followed)
     if gamestart == True:
         addspeed()
         gamestart = False
     else:
         tailspeed = speed
+    print(followed)
     followed = False
     turns += 1
-    print(turns)
+    #print(turns)
     snake.right(90)
     resetcoords()
     addRight()
@@ -127,43 +131,46 @@ turtle.onkey(right, "Right")
 def followLeft():
     global tailspeed
     snaketail.left(90)
-    print("left")
+    print("followed left")
 def followRight():
     global tailspeed
     snaketail.right(90)
-    print("right")
+    print("followed right")
 while True:
     snake.forward(speed)
     snaketail.forward(tailspeed)
     boundary_check_snake()
-    print(speed)
-    print("tail", tailspeed)
+    #print(speed)
+    #print("tail", tailspeed)
     #print("turns", turns)
-    print("coords list", coords)
-    print("snake coords", snake.xcor(), snake.ycor()) 
-    print("snaketail coords", snaketail.xcor(), snaketail.ycor())
+    #print("coords list", coords)
+    #print("snake coords", snake.xcor(), snake.ycor()) 
+    #print("snaketail coords", snaketail.xcor(), snaketail.ycor())
     #print("apple coords", apple.xcor(), apple.ycor())
-    print("leftRightTurns", leftRightTurns)
-    print("\n")
+    #print("leftRightTurns", leftRightTurns)
     x = snake.xcor()
     y = snake.ycor()
     w = apple.xcor()
     z = apple.ycor()
     for x in range(turns):
         #print("x", x)
-        print(followed)
+        #print(followed)
         if (snaketail.xcor() >= coords[x][0] - 2) and (snaketail.xcor() <= coords[x][0] + 2):
             if (snaketail.ycor() >= coords[x][1] - 2) and (snaketail.ycor() <= coords[x][1] + 2):    
                 if followed == False:
-                    print("ran")
+                    #print("ran")
                     if leftRightTurns[x] == "right":
                         tailspeed = speed
+                        print(followed)
                         followRight()
                         followed = True
+                        print(followed)
                     if leftRightTurns[x] == "left":
                         tailspeed = speed
+                        print(followed)
                         followLeft()
                         followed = True
+                        print(followed)
         #print("ar", applereset)
         #print("AA", ateApple)
     if applereset == 0:
