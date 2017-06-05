@@ -29,3 +29,9 @@ ADD another Variable! "turnedtwice"
 
 if followed = True and x < ???? (secondary condition when snake is one or more turns ahead of snaketail) or
 make variable counting number of times snaketail has turned in addition to snake head?
+
+-----------------------------------------------------------------------------------------
+
+problem: still glitches out, assumed because snaketail eventually goes off center
+
+solution: reset snaketail's coords(?) --> be on exact coords of snake (previously) OR make new snaketail object..

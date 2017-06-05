@@ -1,25 +1,12 @@
 import turtle
 import time
 import random
+turtel = turtle.Turtle()
+turtel.penup()
+turtel.goto(0, 370)
 wn = turtle.Screen()
-wn.bgcolor("black")
-mypen = turtle.Turtle()
-mypen.color("white")
-mypen.penup()
-mypen.hideturtle()
-mypen.setposition(-270, 50)
-mypen.write("Welcome to Snake", font = ("Arial", 50, 'normal'))
-time.sleep(1)
-mypen.setposition(-190, 0)
-mypen.write("Made in Python Turtle", font = ("Arial", 30, 'normal'))
-time.sleep(1)
-mypen.setposition(-270, -50)
-mypen.write("by Kristen Ching and Esther Choi", font = ("Arial", 30, 'normal'))
-print("Loading...")
-time.sleep(5)
-print("start!")
-mypen.clear()
 wn.bgcolor("white")
+mypen = turtle.Turtle()
 mypen.color("black")
 mypen.penup()
 mypen.setposition(-360,-390)
@@ -29,21 +16,18 @@ for side in range(4):
     mypen.forward(750)
     mypen.left(90)
 mypen.hideturtle()
-mypen.penup()
-mypen.setposition(-350, 370)
-mypen.pendown()
 apple = turtle.Turtle()
 apple.penup()
 apple.shape("turtle")
 apple.fillcolor("red")
 snake = turtle.Turtle()
 snake.color("darkgreen")
-snake.pensize(10)
+snake.pensize(5)
 snake.speed(0)
 snake.hideturtle()
 snaketail = turtle.Turtle()
 snaketail.color("white")
-snaketail.pensize(25)
+snaketail.pensize(15)
 snaketail.speed(0)
 snaketail.hideturtle()
 w = 0
@@ -54,8 +38,6 @@ tailTurns = 0
 turns = 0
 speed = 1
 tailspeed = 0
-scorestring = 0
-score = 0
 ateApple = False
 applereset = 0
 gamestart = True
@@ -95,30 +77,18 @@ resetcOrds()
 gamestart = False
 applereset = 0
 def boundary_check_snake():
-    if (snake.xcor() > 360 or snake.xcor() < -360) or (snake.ycor() > 370 or snake.ycor() < -370):
+    if snake.xcor() > 360 or snake.xcor() < -360:
         mypen.penup()
-        mypen.goto(-100,0)
-        mypen.color("white")
-        snaketail.clear()
-        snaketail.hideturtle()
-        snake.clear()
-        snake.hideturtle()
-        apple.hideturtle()
-        wn.bgcolor("black")
-        mypen.write("you died", font = ("Arial", 50, 'normal'))
-        scorestring = "Final score: %s" %score
-        mypen.color("white")
-        mypen.goto(-100, -50)
-        time.sleep(.5)
-        mypen.write(scorestring, font=("Arial",30, "normal"))
-        mypen.goto(-70, -90)
-        time.sleep(.5)
-        mypen.write("click to exit", font=("Arial",20, "normal"))
-        for x in range(0, 9):
-            mypen.clear()
-            time.sleep(.1)
-            mypen.write("click to exit", font=("Arial",30, "normal"))
-        wn.exitonclick() 
+        mypen.goto(-150,0)
+        mypen.write("you died", font = ("Arial", 90, 'normal'))
+        while True == True:
+            snake.forward(0)
+    if snake.ycor() > 370 or snake.ycor() < -370:
+        mypen.penup()
+        mypen.goto(-150,0)
+        mypen.write("you died", font = ("arial", 90, 'normal'))
+        while True == True:
+            snake.forward(0)        
 def left():
     #print("snek turned left")
     global turns
@@ -215,14 +185,10 @@ while True:
                         if ateApple == False:
                             resetcOrds()
     if ateApple == True:
-            score += 1
-            scorestring = "Score: %s" %score
-            mypen.undo()
-            mypen.write(scorestring, font=("Arial",14, "normal"))
             applereset = 0
             oldspeed = speed
             speed = oldspeed + 0.5
-            tailspeed = speed - 1
+            tailspeed = speed
             ateApple = False                                 
 
 apple.listen()

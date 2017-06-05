@@ -1,4 +1,4 @@
-1) can't immediately turn right after turning left after turning right and vice versa
+1) can't immediately turn right after turning left after turning right and vice versa (fixed)
 2) apple respawn code runs multiple times
 
 
