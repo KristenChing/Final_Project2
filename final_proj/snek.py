@@ -35,6 +35,7 @@ mypen.pendown()
 apple = turtle.Turtle()
 apple.penup()
 apple.shape("turtle")
+apple.turtlesize(1)
 apple.fillcolor("red")
 snake = turtle.Turtle()
 snake.color("darkgreen")
@@ -98,10 +99,10 @@ def boundary_check_snake():
     if (snake.xcor() > 360 or snake.xcor() < -360) or (snake.ycor() > 370 or snake.ycor() < -370):
         mypen.penup()
         mypen.goto(-100,0)
+        snake.clear()
         mypen.color("white")
         snaketail.clear()
         snaketail.hideturtle()
-        snake.clear()
         snake.hideturtle()
         apple.hideturtle()
         wn.bgcolor("black")
@@ -178,22 +179,22 @@ while True:
     boundary_check_snake()
     #print(speed)
     #print("tail", tailspeed)
-    #print("turns", turns)
-    #print("coords list", coords)
-    #print("snake coords", snake.xcor(), snake.ycor()) 
-    #print("snaketail coords", snaketail.xcor(), snaketail.ycor())
-    #print("apple coords", apple.xcor(), apple.ycor())
-    #print("leftRightTurns", leftRightTurns)
-    #print("\n")
+##    print("turns", turns)
+##    print("coords list", coords)
+##    print("snake coords", snake.xcor(), snake.ycor()) 
+##    print("snaketail coords", snaketail.xcor(), snaketail.ycor())
+##    print("apple coords", apple.xcor(), apple.ycor())
+##    print("leftRightTurns", leftRightTurns)
+##    print("\n")
     x = snake.xcor()
     y = snake.ycor()
     w = apple.xcor()
     z = apple.ycor()
     for x in range(tailTurns, turns):
-        #print(x)
-        if (snaketail.xcor() >= coords[x][0] - 2) and (snaketail.xcor() <= coords[x][0] + 2):
-            if (snaketail.ycor() >= coords[x][1] - 2) and (snaketail.ycor() <= coords[x][1] + 2):    
-                if (followed == False) or ((followed == True) and (turns > tailTurns)):
+        #print("x", x)
+        if (snaketail.xcor() >= coords[x][0] - 5) and (snaketail.xcor() <= coords[x][0] + 5):
+            if (snaketail.ycor() >= coords[x][1] - 5) and (snaketail.ycor() <= coords[x][1] + 5):    
+                if (followed == False) or (followed == True and turns > tailTurns):
                     #print("followed, 1", followed)
                     #print("turns", turns, "tailturns", tailTurns)
                     if leftRightTurns[x] == "right":
@@ -202,11 +203,20 @@ while True:
                         tailspeed = speed
                         followRight()
                         followed = True
-                    if leftRightTurns[x] == "left":
+                    elif leftRightTurns[x] == "left":
                         #print("ran left")
                         tailspeed = speed
                         followLeft()
                         followed = True
+                else:
+                    snaketail.goto(coords[x][0], coords[x][1])
+        #print("turns", turns)
+        #print("tailturns", tailTurns)
+        #print("coords list", coords)
+        #print("snake coords", snake.xcor(), snake.ycor()) 
+        #print("snaketail coords", snaketail.xcor(), snaketail.ycor())
+        #print("leftRightTurns", leftRightTurns)
+        #print(followed)
     if applereset == 0:
         for i in range (int(w) - 5, int(w) + 5):
             if (i > snake.xcor() - 5) and (i < snake.xcor() + 5):
