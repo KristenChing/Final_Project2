@@ -33,8 +33,10 @@ mypen.penup()
 mypen.setposition(-350, 370)
 mypen.pendown()
 apple = turtle.Turtle()
+image = "apl.gif"
+wn.addshape(image)
+apple.shape(image)
 apple.penup()
-apple.shape("turtle")
 apple.turtlesize(1)
 apple.fillcolor("red")
 snake = turtle.Turtle()
@@ -77,7 +79,6 @@ def addLeft():
 def addRight():
     leftRightTurns.append("right")
 def resetcOrds():
-    #print("resetting apple")
     global ateApple
     global applereset
     applereset += 1
